@@ -1,4 +1,9 @@
-﻿namespace FunWith2DArrays
+﻿using System;
+using System.Drawing;
+using Colorful;
+using Console = Colorful.Console;
+
+namespace FunWith2DArrays
 {
     class Program
     {
@@ -96,14 +101,38 @@
             //End of While loop
             
             //Print to see if the grid values look good.
-            for (int i = 0; i < rows2DArray; i++)
+            Console.WriteLine("How do you want the grid to be printed?");
+            Console.WriteLine("Choose one of the 3 options:");
+            Console.WriteLine("1 - Print the indices and a border between the cells.");
+            //Console.WriteLine("2 - Print like a chess board with alternating values on the grid.");
+            int usersChoiceToDisplay = Convert.ToInt32(Console.ReadLine());
+
+            if (usersChoiceToDisplay == 1)
             {
-                for (int j = 0; j < columns2DArray; j++)
+                string roofPattern = "";
+                for (int i = 0; i < columns2DArray; i++)
                 {
-                    Console.Write($"{string2DArray[i, j]} ");
+                    roofPattern += "+---";
                 }
-                Console.WriteLine();
+                roofPattern += "+";
+                
+                for (int i = 0; i < rows2DArray; i++)
+                {
+                    Console.WriteLine(roofPattern, Color.Blue);
+                    for (int j = 0; j < columns2DArray; j++)
+                    {
+                        Console.Write($"|{i},{j}", Color.Blue);
+                    }
+                    Console.Write($"|", Color.Blue);
+                    Console.WriteLine();
+                }
+                Console.WriteLine(roofPattern, Color.Blue);
             }
+            /*else if (usersChoiceToDisplay == 2)
+            {
+                
+            }*/
+            
             
         }
     }
