@@ -18,14 +18,12 @@ namespace FunWith2DArrays
 
             while (true)
             {
-                Console.WriteLine(
-                    "Enter the dimensions of the two dimensional array to create. For the sake of simplicity lets keep the dimensions in single digit.");
+                Console.WriteLine("Enter the dimensions of the two dimensional array to create. For the sake of simplicity lets keep the dimensions in single digit.");
                 Console.WriteLine("Please enter it in either of these 2 formats -> rows x columns or rows, columns : ");
                 string unparsedDimensions = Console.ReadLine();
 
                 char[] delimiters = { 'x', 'X', ',' };
-                string[] parsedDimensions = unparsedDimensions.Split(delimiters,
-                    StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries | StringSplitOptions.None);
+                string[] parsedDimensions = unparsedDimensions.Split(delimiters, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries | StringSplitOptions.None);
 
                 if (parsedDimensions.Length == 2)
                 {
@@ -100,40 +98,119 @@ namespace FunWith2DArrays
             }
             //End of While loop
             
-            //Print to see if the grid values look good.
-            Console.WriteLine("How do you want the grid to be printed?");
-            Console.WriteLine("Choose one of the 3 options:");
-            Console.WriteLine("1 - Print the indices and a border between the cells.");
-            //Console.WriteLine("2 - Print like a chess board with alternating values on the grid.");
-            int usersChoiceToDisplay = Convert.ToInt32(Console.ReadLine());
-
-            if (usersChoiceToDisplay == 1)
+            //Print the grid we just created.
+            for (int i = 0; i < rows2DArray; i++)
             {
-                string roofPattern = "";
-                for (int i = 0; i < columns2DArray; i++)
+                for (int j = 0; j < columns2DArray; j++)
                 {
-                    roofPattern += "+---";
+                    Console.Write($"{string2DArray[i, j]}  ");
                 }
-                roofPattern += "+";
-                
-                for (int i = 0; i < rows2DArray; i++)
-                {
-                    Console.WriteLine(roofPattern, Color.Blue);
-                    for (int j = 0; j < columns2DArray; j++)
-                    {
-                        Console.Write($"|{i},{j}", Color.Blue);
-                    }
-                    Console.Write($"|", Color.Blue);
-                    Console.WriteLine();
-                }
-                Console.WriteLine(roofPattern, Color.Blue);
+                Console.WriteLine();
             }
-            /*else if (usersChoiceToDisplay == 2)
+
+            // Display options.
+            while (true)
             {
-                
-            }*/
-            
-            
+                Console.WriteLine("How do you want the grid to be printed?");
+                Console.WriteLine("Choose one of the 3 options:");
+                Console.WriteLine("1 - Print the indices and a border between the cells.");
+                Console.WriteLine("2 - Print like a chess board with alternating values on the grid.");
+                Console.WriteLine("3 - Print array with numbers using alternating colors.");
+                int usersChoiceToDisplay = Convert.ToInt32(Console.ReadLine());
+
+                if (usersChoiceToDisplay == 1)
+                {
+                    string roofPattern = "";
+                    for (int i = 0; i < columns2DArray; i++)
+                    {
+                        roofPattern += "+---";
+                    }
+
+                    roofPattern += "+";
+
+                    for (int i = 0; i < rows2DArray; i++)
+                    {
+                        Console.WriteLine(roofPattern, Color.Blue);
+                        for (int j = 0; j < columns2DArray; j++)
+                        {
+                            Console.Write($"|{i},{j}", Color.Blue);
+                        }
+
+                        Console.Write($"|", Color.Blue);
+                        Console.WriteLine();
+                    }
+
+                    Console.WriteLine(roofPattern, Color.Blue);
+                    break;
+                }
+                else if (usersChoiceToDisplay == 2)
+                {
+                    int count = 0;
+                    char[] xoChars = { 'X', 'O' };
+
+                    for (int i = 0; i < rows2DArray; i++)
+                    {
+                        for (int j = 0; j < columns2DArray; j++)
+                        {
+                            Console.Write($"{xoChars[count % 2]}  ", Color.DarkRed);
+                            count++;
+                        }
+
+                        Console.WriteLine();
+                    }
+
+                    break;
+                }
+                else if (usersChoiceToDisplay == 3)
+                {
+                    //Print array with numbers using alternating colors
+                    int count = 0;
+                    string roofPattern = "";
+                    ColorAlternatorFactory alternatorFactory = new ColorAlternatorFactory();
+                    ColorAlternator alternator = alternatorFactory.GetAlternator(2, Color.Pink, Color.Yellow, Color.Red,
+                        Color.Orange, Color.Indigo, Color.LightGreen);
+
+                    for (int i = 0; i < columns2DArray; i++)
+                    {
+                        roofPattern += "+---";
+                    }
+
+                    roofPattern += "+";
+
+                    for (int i = 0; i < rows2DArray; i++)
+                    {
+                        Console.WriteLine(roofPattern, Color.White);
+                        for (int j = 0; j < columns2DArray; j++)
+                        {
+                            Console.Write("|", Color.White);
+                            if (count < 10)
+                            {
+                                Console.WriteAlternating($" {count} ", alternator);
+                                count++;
+                            }
+                            else
+                            {
+                                Console.WriteAlternating($" {count}", alternator);
+                                count++;
+                            }
+                        }
+
+                        Console.Write("|", Color.White);
+                        Console.WriteLine();
+                    }
+
+                    Console.WriteLine(roofPattern, Color.White);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Error: Incorrect option. Please re-run the program again.");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
+                    continue;
+                }
+            }
         }
     }
 }
