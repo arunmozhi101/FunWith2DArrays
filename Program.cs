@@ -9,6 +9,8 @@ namespace FunWith2DArrays
     {
         static void Main(string[] args)
         {
+            const int TWO_DIMENSION = 2;
+            
             Console.WriteLine("Welcome to Fun With 2D Arrays Program!");
             Console.WriteLine("This program provides an opportunity to play with 2D arrays.");
             Console.WriteLine("Press any key to continue...");
@@ -25,7 +27,7 @@ namespace FunWith2DArrays
                 char[] delimiters = { 'x', 'X', ',' };
                 string[] parsedDimensions = unparsedDimensions.Split(delimiters, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries | StringSplitOptions.None);
 
-                if (parsedDimensions.Length == 2)
+                if (parsedDimensions.Length == TWO_DIMENSION)
                 {
                     Console.WriteLine("The dimensions of the two dimensional array is: " + parsedDimensions.Length);
                     Console.WriteLine($"The dimensions are : {parsedDimensions[0]} x {parsedDimensions[1]}");
@@ -51,13 +53,15 @@ namespace FunWith2DArrays
 
             while (true)
             {
+                const int MANUAL = 1;
+                const int AUTOMATIC = 2;
                 Console.WriteLine("Do you want to fill in the values manually by yourself or get the program to fill it up randomly from a pre-defined list?");
                 Console.WriteLine("Choose one of the 2 options:");
                 Console.WriteLine("1 - Manual [Can be a single character or a string filled manually by the user one by one.]");
                 Console.WriteLine("2 - Automatic [Characters from a pre-configured list filled randomly.]");
                 int usersChoiceToFill = Convert.ToInt32(Console.ReadLine());
 
-                if (usersChoiceToFill == 1)
+                if (usersChoiceToFill == MANUAL)
                 {
                     for (int i = 0; i < rows2DArray; i++)
                     {
@@ -70,7 +74,7 @@ namespace FunWith2DArrays
 
                     break;
                 }
-                else if (usersChoiceToFill == 2)
+                else if (usersChoiceToFill == AUTOMATIC)
                 {
                     string symbolsList = "!@#$%^&*()_+{}:;\"<>?,./\\[]|-=";
 
@@ -111,6 +115,10 @@ namespace FunWith2DArrays
             // Display options.
             while (true)
             {
+                const int INDICES_WITH_BORDER = 1;
+                const int CHESS_BOARD_X_O = 2;
+                const int NUMBERS_USING_COLORS = 3;
+                
                 Console.WriteLine("How do you want the grid to be printed?");
                 Console.WriteLine("Choose one of the 3 options:");
                 Console.WriteLine("1 - Print the indices and a border between the cells.");
@@ -118,7 +126,7 @@ namespace FunWith2DArrays
                 Console.WriteLine("3 - Print array with numbers using alternating colors.");
                 int usersChoiceToDisplay = Convert.ToInt32(Console.ReadLine());
 
-                if (usersChoiceToDisplay == 1)
+                if (usersChoiceToDisplay == INDICES_WITH_BORDER)
                 {
                     string roofPattern = "";
                     for (int i = 0; i < columns2DArray; i++)
@@ -143,7 +151,7 @@ namespace FunWith2DArrays
                     Console.WriteLine(roofPattern, Color.Blue);
                     break;
                 }
-                else if (usersChoiceToDisplay == 2)
+                else if (usersChoiceToDisplay == CHESS_BOARD_X_O)
                 {
                     int count = 0;
                     char[] xoChars = { 'X', 'O' };
@@ -161,7 +169,7 @@ namespace FunWith2DArrays
 
                     break;
                 }
-                else if (usersChoiceToDisplay == 3)
+                else if (usersChoiceToDisplay == NUMBERS_USING_COLORS)
                 {
                     //Print array with numbers using alternating colors
                     int count = 0;
