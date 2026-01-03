@@ -175,7 +175,7 @@ namespace FunWith2DArrays
                     int count = 0;
                     string roofPattern = "";
                     ColorAlternatorFactory alternatorFactory = new ColorAlternatorFactory();
-                    ColorAlternator alternator = alternatorFactory.GetAlternator(2, Color.Pink, Color.Yellow, Color.Red,
+                    ColorAlternator alternator = alternatorFactory.GetAlternator(2, Color.Red,
                         Color.Orange, Color.Indigo, Color.LightGreen);
 
                     for (int i = 0; i < columns2DArray; i++)
