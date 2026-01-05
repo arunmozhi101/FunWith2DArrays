@@ -9,7 +9,12 @@ namespace FunWith2DArrays
     {
         static void Main(string[] args)
         {
+            const int MANUAL = 1;
+            const int AUTOMATIC = 2;
             const int TWO_DIMENSION = 2;
+            const int INDICES_WITH_BORDER = 1;
+            const int CHESS_BOARD_X_O = 2;
+            const int NUMBERS_USING_COLORS = 3;
             
             Console.WriteLine("Welcome to Fun With 2D Arrays Program!");
             Console.WriteLine("This program provides an opportunity to play with 2D arrays.");
@@ -61,9 +66,6 @@ namespace FunWith2DArrays
 
             while (true)
             {
-                const int MANUAL = 1;
-                const int AUTOMATIC = 2;
-                
                 Console.Write("\n");
                 Console.WriteLine("Do you want to fill in the values manually by yourself or get the program to fill it up randomly from a pre-defined list?");
                 Console.WriteLine("Choose one of the 2 options:");
@@ -125,10 +127,6 @@ namespace FunWith2DArrays
             // Display options.
             while (true)
             {
-                const int INDICES_WITH_BORDER = 1;
-                const int CHESS_BOARD_X_O = 2;
-                const int NUMBERS_USING_COLORS = 3;
-
                 Console.Write("\n");
                 Console.WriteLine("How do you want the grid to be printed?");
                 Console.WriteLine("Choose one of the 3 options:");
