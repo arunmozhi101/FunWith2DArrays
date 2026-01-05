@@ -71,6 +71,7 @@ namespace FunWith2DArrays
                 Console.WriteLine("2 - Automatic [Characters from a pre-configured list filled randomly.]");
                 
                 string usersChoiceInputString = Console.ReadLine();
+                Random rng = new Random();
                 
                 if (int.TryParse(usersChoiceInputString, out int usersChoiceToFill))
                 {
@@ -94,7 +95,6 @@ namespace FunWith2DArrays
                         {
                             for (int j = 0; j < columns2DArray; j++)
                             {
-                                Random rng = new Random();
                                 int randomNumber = rng.Next(0, symbolsList.Length);
                                 string2DArray[i, j] = symbolsList[randomNumber].ToString();
                             }
