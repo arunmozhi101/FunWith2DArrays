@@ -29,11 +29,19 @@ namespace FunWith2DArrays
 
                 if (parsedDimensions.Length == TWO_DIMENSION)
                 {
-                    Console.WriteLine("The dimensions of the two dimensional array is: " + parsedDimensions.Length);
-                    Console.WriteLine($"The dimensions are : {parsedDimensions[0]} x {parsedDimensions[1]}");
-                    rows2DArray = Convert.ToInt32(parsedDimensions[0]);
-                    columns2DArray = Convert.ToInt32(parsedDimensions[1]);
-                    break;
+                    if (int.TryParse(parsedDimensions[0], out rows2DArray) && int.TryParse(parsedDimensions[1], out columns2DArray))
+                    {
+                        Console.WriteLine("The dimensions of the two dimensional array is: " + parsedDimensions.Length);
+                        Console.WriteLine($"The dimensions are : {parsedDimensions[0]} x {parsedDimensions[1]}");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: Incorrect dimensions input. Please try again.");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
                 }
                 else
                 {
@@ -55,41 +63,44 @@ namespace FunWith2DArrays
             {
                 const int MANUAL = 1;
                 const int AUTOMATIC = 2;
+                
+                Console.Write("\n");
                 Console.WriteLine("Do you want to fill in the values manually by yourself or get the program to fill it up randomly from a pre-defined list?");
                 Console.WriteLine("Choose one of the 2 options:");
                 Console.WriteLine("1 - Manual [Can be a single character or a string filled manually by the user one by one.]");
                 Console.WriteLine("2 - Automatic [Characters from a pre-configured list filled randomly.]");
-                int usersChoiceToFill = Convert.ToInt32(Console.ReadLine());
-
-                if (usersChoiceToFill == MANUAL)
+                
+                string usersChoiceInputString = Console.ReadLine();
+                
+                if (int.TryParse(usersChoiceInputString, out int usersChoiceToFill))
                 {
-                    for (int i = 0; i < rows2DArray; i++)
+                    if (usersChoiceToFill == MANUAL)
                     {
-                        for (int j = 0; j < columns2DArray; j++)
+                        for (int i = 0; i < rows2DArray; i++)
                         {
-                            Console.Write($"[{i},{j}] = ");
-                            string2DArray[i, j] = Console.ReadLine(); //Need to handle exceptions in the future, for now I expect a clean input from the user.
+                            for (int j = 0; j < columns2DArray; j++)
+                            {
+                                Console.Write($"[{i},{j}] = ");
+                                string2DArray[i, j] = Console.ReadLine(); //Need to handle exceptions in the future, for now I expect a clean input from the user.
+                            }
                         }
+                        break;
                     }
-
-                    break;
-                }
-                else if (usersChoiceToFill == AUTOMATIC)
-                {
-                    string symbolsList = "!@#$%^&*()_+{}:;\"<>?,./\\[]|-=";
-
-                    for (int i = 0; i < rows2DArray; i++)
+                    else if (usersChoiceToFill == AUTOMATIC)
                     {
-                        for (int j = 0; j < columns2DArray; j++)
+                        string symbolsList = "!@#$%^&*()_+{}:;\"<>?,./\\[]|-=";
+
+                        for (int i = 0; i < rows2DArray; i++)
                         {
-                            Random rng = new Random();
-                            int randomNumber = rng.Next(0, symbolsList.Length);
-
-                            string2DArray[i, j] = symbolsList[randomNumber].ToString();
+                            for (int j = 0; j < columns2DArray; j++)
+                            {
+                                Random rng = new Random();
+                                int randomNumber = rng.Next(0, symbolsList.Length);
+                                string2DArray[i, j] = symbolsList[randomNumber].ToString();
+                            }
                         }
+                        break;
                     }
-
-                    break;
                 }
                 else
                 {
@@ -97,7 +108,6 @@ namespace FunWith2DArrays
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadLine();
                     Console.Clear();
-                    continue;
                 }
             }
             //End of While loop
@@ -107,7 +117,7 @@ namespace FunWith2DArrays
             {
                 for (int j = 0; j < columns2DArray; j++)
                 {
-                    Console.Write($"{string2DArray[i, j]}  ");
+                    Console.Write($"{string2DArray[i, j]}  ", Color.Blue);
                 }
                 Console.WriteLine();
             }
@@ -118,97 +128,103 @@ namespace FunWith2DArrays
                 const int INDICES_WITH_BORDER = 1;
                 const int CHESS_BOARD_X_O = 2;
                 const int NUMBERS_USING_COLORS = 3;
-                
+
+                Console.Write("\n");
                 Console.WriteLine("How do you want the grid to be printed?");
                 Console.WriteLine("Choose one of the 3 options:");
                 Console.WriteLine("1 - Print the indices and a border between the cells.");
                 Console.WriteLine("2 - Print like a chess board with alternating values on the grid.");
                 Console.WriteLine("3 - Print array with numbers using alternating colors.");
-                int usersChoiceToDisplay = Convert.ToInt32(Console.ReadLine());
+                //int usersChoiceToDisplay = Convert.ToInt32(Console.ReadLine());
+                
+                string usersChoiceInputString = Console.ReadLine();
 
-                if (usersChoiceToDisplay == INDICES_WITH_BORDER)
+                if (int.TryParse(usersChoiceInputString, out int usersChoiceToDisplay))
                 {
-                    string roofPattern = "";
-                    for (int i = 0; i < columns2DArray; i++)
+                    if (usersChoiceToDisplay == INDICES_WITH_BORDER)
                     {
-                        roofPattern += "+---";
-                    }
+                        string roofPattern = "";
+                        for (int i = 0; i < columns2DArray; i++)
+                        {
+                            roofPattern += "+---";
+                        }
 
-                    roofPattern += "+";
+                        roofPattern += "+";
 
-                    for (int i = 0; i < rows2DArray; i++)
-                    {
+                        for (int i = 0; i < rows2DArray; i++)
+                        {
+                            Console.WriteLine(roofPattern, Color.Blue);
+                            for (int j = 0; j < columns2DArray; j++)
+                            {
+                                Console.Write($"|{i},{j}", Color.Blue);
+                            }
+
+                            Console.Write($"|", Color.Blue);
+                            Console.WriteLine();
+                        }
+
                         Console.WriteLine(roofPattern, Color.Blue);
-                        for (int j = 0; j < columns2DArray; j++)
+                        break;
+                    }
+                    else if (usersChoiceToDisplay == CHESS_BOARD_X_O)
+                    {
+                        int count = 0;
+                        char[] xoChars = { 'X', 'O' };
+
+                        for (int i = 0; i < rows2DArray; i++)
                         {
-                            Console.Write($"|{i},{j}", Color.Blue);
+                            for (int j = 0; j < columns2DArray; j++)
+                            {
+                                Console.Write($"{xoChars[count % 2]}  ", Color.DarkRed);
+                                count++;
+                            }
+
+                            Console.WriteLine();
                         }
 
-                        Console.Write($"|", Color.Blue);
-                        Console.WriteLine();
+                        break;
                     }
-
-                    Console.WriteLine(roofPattern, Color.Blue);
-                    break;
-                }
-                else if (usersChoiceToDisplay == CHESS_BOARD_X_O)
-                {
-                    int count = 0;
-                    char[] xoChars = { 'X', 'O' };
-
-                    for (int i = 0; i < rows2DArray; i++)
+                    else if (usersChoiceToDisplay == NUMBERS_USING_COLORS)
                     {
-                        for (int j = 0; j < columns2DArray; j++)
+                        //Print array with numbers using alternating colors
+                        int count = 0;
+                        string roofPattern = "";
+                        ColorAlternatorFactory alternatorFactory = new ColorAlternatorFactory();
+                        ColorAlternator alternator = alternatorFactory.GetAlternator(2, Color.Red,
+                            Color.Orange, Color.Indigo, Color.LightGreen);
+
+                        for (int i = 0; i < columns2DArray; i++)
                         {
-                            Console.Write($"{xoChars[count % 2]}  ", Color.DarkRed);
-                            count++;
+                            roofPattern += "+---";
                         }
 
-                        Console.WriteLine();
-                    }
+                        roofPattern += "+";
 
-                    break;
-                }
-                else if (usersChoiceToDisplay == NUMBERS_USING_COLORS)
-                {
-                    //Print array with numbers using alternating colors
-                    int count = 0;
-                    string roofPattern = "";
-                    ColorAlternatorFactory alternatorFactory = new ColorAlternatorFactory();
-                    ColorAlternator alternator = alternatorFactory.GetAlternator(2, Color.Red,
-                        Color.Orange, Color.Indigo, Color.LightGreen);
-
-                    for (int i = 0; i < columns2DArray; i++)
-                    {
-                        roofPattern += "+---";
-                    }
-
-                    roofPattern += "+";
-
-                    for (int i = 0; i < rows2DArray; i++)
-                    {
-                        Console.WriteLine(roofPattern, Color.White);
-                        for (int j = 0; j < columns2DArray; j++)
+                        for (int i = 0; i < rows2DArray; i++)
                         {
+                            Console.WriteLine(roofPattern, Color.White);
+                            for (int j = 0; j < columns2DArray; j++)
+                            {
+                                Console.Write("|", Color.White);
+                                if (count < 10)
+                                {
+                                    Console.WriteAlternating($" {count} ", alternator);
+                                    count++;
+                                }
+                                else
+                                {
+                                    Console.WriteAlternating($" {count}", alternator);
+                                    count++;
+                                }
+                            }
+
                             Console.Write("|", Color.White);
-                            if (count < 10)
-                            {
-                                Console.WriteAlternating($" {count} ", alternator);
-                                count++;
-                            }
-                            else
-                            {
-                                Console.WriteAlternating($" {count}", alternator);
-                                count++;
-                            }
+                            Console.WriteLine();
                         }
 
-                        Console.Write("|", Color.White);
-                        Console.WriteLine();
+                        Console.WriteLine(roofPattern, Color.White);
+                        break;
                     }
-
-                    Console.WriteLine(roofPattern, Color.White);
-                    break;
                 }
                 else
                 {
@@ -216,7 +232,6 @@ namespace FunWith2DArrays
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadLine();
                     Console.Clear();
-                    continue;
                 }
             }
         }
